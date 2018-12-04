@@ -12,7 +12,7 @@ with open(csvpath, newline='') as csvfile:
     numbers=[x for x in csvreader]
 
     for row in csvreader:
-         numbers.append(float(row))
+         numbers.append(row)
 
 def column(matrix,i):
     return [row[i] for row in matrix]
