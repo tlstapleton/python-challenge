@@ -1,6 +1,6 @@
 import os
 import csv
-csvpath = os.path.join('Desktop','PythonStuff', 'python-challenge', 'PyBank','budget_data.csv')
+csvpath = os.path.join('budget_data.csv')
 
 with open(csvpath, newline='') as csvfile:
 
@@ -27,21 +27,34 @@ def rolling_difference(dataset, interval=1):
 x = column(numbers,1) 
 y=[int(i) for i in x]
 
-min=0
-max=0
-for i in y:
-    if i<min:
-        min=i
-    elif i>max:
-        max=i
+# min=0
+# max=0
+# # for i in y:
+# #     if i<min:
+# #         min=i
+# #     elif i>max:
+# #         max=i
 
-min_month = column([i for i in numbers if str(min) in i],0)
-max_month = column([i for i in numbers if str(max) in i],0)
+# min_month = column([i for i in numbers if str(min) in i],0)
+# max_month = column([i for i in numbers if str(max) in i],0)
+
 
 total=sum(y)
 total_months = len(numbers)
 
 z=rolling_difference(y)
+min=0
+max=0
+for value in z:
+    if value<min:
+        min=value
+    elif value>max:
+        max=value
+
+min_month = column([i for i in numbers if str(min) in i],0)
+max_month = column([i for i in numbers if str(max) in i],0)
+
+
 average_change=sum(z)/len(z)
 average_change = "%.2f" % average_change
 
