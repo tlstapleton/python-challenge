@@ -1,24 +1,26 @@
-import os
-import csv
-csvpath = os.path.join('Desktop','PythonStuff', 'python-challenge', 'PyPoll','election_data.csv')
-num_voters=0
-candidate=[]
-with open(csvpath, newline='') as csvfile:
 
-    csvreader = csv.reader(csvfile, delimiter=',')
+import pandas as pd
 
-    next(csvreader, None)
-    
-    numbers=list(csvreader)
-    num_voters = len(numbers)
-    
-    for row in csvreader:
-        if row[2] not in candidate:  
-            print(row[2])
-            candidate.append(row[2])
-     
-print(candidate)
-print(f"Election Results")
-print(f"----------------------------")
-print(f"Total Votes: {num_voters}")
-print(f"----------------------------")
+election_df= pd.read_csv("election_data.csv")
+
+
+total = len(election_df)
+
+list = election_df["Candidate"].value_counts()
+candidates = pd.DataFrame(list)
+
+percent = (candidates["Candidate"]/total)*100
+candidates["Percent"]=round(percent)
+
+list_candidates=candidates.index
+candidates["Last Name"]=list_candidates
+
+print("Election Results")
+print("-----------------------------------------")
+print(f'Total Votes: {total}')
+print("-----------------------------------------")
+for index, row in candidates.iterrows():
+    print('{0}'.format(row['Last Name'])+": "+'{0}'.format(row['Percent'])+"% (" + '{0}'.format(row['Candidate'])+")")
+print("-----------------------------------------")
+print(f'Winner: {candidates["Candidate"].idxmax()}')
+print("-----------------------------------------")

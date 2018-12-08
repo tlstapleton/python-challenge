@@ -1,5 +1,7 @@
 import os
 import csv
+
+
 csvpath = os.path.join('budget_data.csv')
 
 with open(csvpath, newline='') as csvfile:
@@ -14,9 +16,6 @@ with open(csvpath, newline='') as csvfile:
     for row in csvreader:
          numbers.append(row)
 
-def column(matrix,i):
-    return [row[i] for row in matrix]
-
 def rolling_difference(dataset, interval=1):
 	diff = list()
 	for i in range(interval, len(dataset)):
@@ -24,25 +23,14 @@ def rolling_difference(dataset, interval=1):
 		diff.append(value)
 	return diff
 
-x = column(numbers,1) 
-y=[int(i) for i in x]
-
-# min=0
-# max=0
-# # for i in y:
-# #     if i<min:
-# #         min=i
-# #     elif i>max:
-# #         max=i
-
-# min_month = column([i for i in numbers if str(min) in i],0)
-# max_month = column([i for i in numbers if str(max) in i],0)
-
+x = [row[1] for row in numbers] 
+y=  [int(i) for i in x]
 
 total=sum(y)
 total_months = len(numbers)
 
 z=rolling_difference(y)
+
 min=0
 max=0
 for value in z:
@@ -51,12 +39,13 @@ for value in z:
     elif value>max:
         max=value
 
-min_month = column([i for i in numbers if str(min) in i],0)
-max_month = column([i for i in numbers if str(max) in i],0)
-
 
 average_change=sum(z)/len(z)
 average_change = "%.2f" % average_change
+max_month_1= [numbers[z.index(max)+1]]
+max_month=[item[0] for item in max_month_1]
+min_month_1= [numbers[z.index(min)+1]]
+min_month=[item[0] for item in min_month_1]
 
 print("Financial Analysis")
 print("----------------------------------------------")
