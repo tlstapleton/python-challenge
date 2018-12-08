@@ -24,3 +24,14 @@ for index, row in candidates.iterrows():
 print("-----------------------------------------")
 print(f'Winner: {candidates["Candidate"].idxmax()}')
 print("-----------------------------------------")
+
+f=open("PyPollOutput.txt","w")
+f.write("Election Results\n")
+f.write("-----------------------------------------\n")
+f.write(f'Total Votes: {total}\n')
+f.write("-----------------------------------------\n")
+for index, row in candidates.iterrows():
+    f.write('{0}'.format(row['Last Name'])+": "+'{0}'.format(row['Percent'])+"% (" + '{0}'.format(row['Candidate'])+")\n")
+f.write("-----------------------------------------\n")
+f.write(f'Winner: {candidates["Candidate"].idxmax()}\n')
+f.write("-----------------------------------------\n")
